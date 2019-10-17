@@ -14,7 +14,7 @@ class Dog
 {
     private String name = "哮天犬";
     private int food = 50;
-    public int age=5;
+    public int age = 5;
 
     public Dog()
     {
@@ -31,7 +31,7 @@ class Dog
         System.out.println(dog + "叫了");
     }
 
-    public int eat(Dog this, int num)
+    public int eat(int num)
     {
         System.out.println("吃了" + num + "斤狗粮");
         this.food -= num;
