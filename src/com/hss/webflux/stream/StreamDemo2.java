@@ -19,7 +19,7 @@ public class StreamDemo2
     {
         List<String> list = new ArrayList<>();
 
-        //从计划创建
+        //从集合创建
         list.stream();
         list.parallelStream();
 
