@@ -70,7 +70,6 @@ public class FlowDemo
                 // 全部数据处理完了(发布者关闭了)
                 System.out.println("处理完了!");
             }
-
         };
 
         // 3. 发布者和订阅者 建立订阅关系
