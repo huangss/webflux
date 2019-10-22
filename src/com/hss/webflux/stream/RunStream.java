@@ -18,7 +18,7 @@ public class RunStream
         // 随机产生数据
         Stream<Integer> stream = Stream.generate(random::nextInt)
                 // 产生500个 ( 无限流需要短路操作. )
-                .limit(500)
+                .limit(8)
                 // 第1个无状态操作
                 .peek(s -> print("peek: " + s))
                 // 第2个无状态操作
@@ -32,9 +32,11 @@ public class RunStream
                     return i1.compareTo(i2);
                 })
                 // 又一个无状态操作
-                .peek(s -> {
-                    print("peek2: " + s);
-                }).parallel();
+                .filter(s -> {
+                    print("filter2222:" + s);
+                    return s > 10000000;
+                })
+                .parallel();
 
         // 终止操作
         stream.count();

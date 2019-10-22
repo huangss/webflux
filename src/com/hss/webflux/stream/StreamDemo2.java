@@ -26,7 +26,7 @@ public class StreamDemo2
         //从数组创建
         Arrays.stream(new int[]{2, 3, 5});
 
-        // 创建数字流
+        // 创建数字流（不需要自动装箱，性能更高）
         IntStream.of(1, 2, 3);
         IntStream.rangeClosed(1, 10);
 
@@ -35,6 +35,7 @@ public class StreamDemo2
 
         // 自己产生流
         Random random = new Random();
+        //Stream.generate(random::nextInt).limit(20);
         Stream.generate(() -> random.nextInt()).limit(20);
     }
 }

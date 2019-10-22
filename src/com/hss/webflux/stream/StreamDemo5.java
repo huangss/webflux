@@ -14,28 +14,31 @@ public class StreamDemo5
 {
     public static void main(String[] args)
     {
+        //串行，单线程，一行一行打印
+        IntStream.range(1, 100).peek(StreamDemo5::debug).count();
+
         // 调用parallel 产生一个并行流
         // 并行流使用的线程池: ForkJoinPool.commonPool
         // 默认的线程数是 当前机器的cpu个数
-        // 使用这个属性可以修改默认的线程数 System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism","20");
-        IntStream.range(1, 10).parallel().forEach(StreamDemo5::debug);
+        IntStream.range(1, 100).parallel().peek(StreamDemo5::debug).count();
+
+        // 使用这个属性可以修改默认的线程数
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");
 
         // 现在要实现一个这样的效果: 先并行,再串行
         // 多次调用 parallel / sequential, 以最后一次调用为准.
-        /*IntStream.range(1, 100)
-                .parallel().peek(StreamDemo5::debug)  //调用parallel产生并行流
-                .sequential().peek(StreamDemo5::debug2)  //调用sequential产生串行流
+        IntStream.range(1, 100)
+                // 调用parallel产生并行流
+                .parallel().peek(StreamDemo5::debug)
+                // 调用sequential 产生串行流
+                .sequential().peek(StreamDemo5::debug2)
                 .count();
 
         // 使用自己的线程池, 不使用默认线程池, 防止任务被阻塞
         // 线程名字 : ForkJoinPool-1
         ForkJoinPool pool = new ForkJoinPool(20);
-        pool.submit(() -> IntStream.range(1, 100)
-                .parallel()
-                .peek(StreamDemo5::debug).count()
-        );
+        pool.submit(() -> IntStream.range(1, 100).parallel().peek(StreamDemo5::debug).count());
         pool.shutdown();
-
         synchronized (pool)
         {
             try
@@ -45,7 +48,7 @@ public class StreamDemo5
             {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     public static void debug(int i)
